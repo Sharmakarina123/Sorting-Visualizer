@@ -58,10 +58,38 @@ Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive
 
 ---
 
+🧠 Learning Objectives
+- Understand the working of basic sorting & searching algorithms
+- Visualize step-by-step logic of each algorithm
+- Learn to use animations, sounds, and modular JS code in web apps
+
+
+🗣️ Contributing
+- Feel free to fork the repo, create a new feature or fix a bug, and raise a pull request.
+Let’s learn and grow together! 🌱
+
+
+🙏 Acknowledgments
+- Inspired by Visual Algo
+- Sound design using Web Audio API
+- Tailwind CSS for utility classes
+
+
+📌 Tags
+- #SortingVisualizer #SearchingVisualizer #DSA #Frontend #JavaScript #TailwindCSS #OpenSource
+
+
 ## 🧑‍💻 How to Run Locally
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/your-repo-name.git
+# Open index.html in your browser #
 
-# Open index.html in your browser
+
+
+
+
+
+
+
