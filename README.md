@@ -54,7 +54,7 @@ Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive
 
 ## 🖼️ Screenshots
 
-> Coming Soon... (add your project screenshots here to make it more engaging!)
+> Coming Soon...
 
 ---
 
