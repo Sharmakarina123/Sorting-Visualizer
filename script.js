@@ -32,11 +32,11 @@ let animationSpeed = 50;
 
 const algorithms = {
     bubble: {
-        code: `function bubbleSort(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = 0; j < arr.length - i - 1; j++) {
+        code: `void bubbleSort(vector<int>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        for (int j = 0; j < arr.size() - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                swap(arr[j], arr[j + 1]);
             }
         }
     }
@@ -45,138 +45,142 @@ const algorithms = {
         space: 'O(1)'
     },
     merge: {
-        code: `function mergeSort(arr) {
-    if (arr.length <= 1) return arr;
+        code: `void mergeSort(vector<int>& arr) {
+    if (arr.size() <= 1) return;
     
-    const mid = Math.floor(arr.length / 2);
-    const left = mergeSort(arr.slice(0, mid));
-    const right = mergeSort(arr.slice(mid));
+    int mid = arr.size() / 2;
+    vector<int> left(arr.begin(), arr.begin() + mid);
+    vector<int> right(arr.begin() + mid, arr.end());
     
-    return merge(left, right);
+    mergeSort(left);
+    mergeSort(right);
+    merge(arr, left, right);
 }
 
-function merge(left, right) {
-    let result = [];
-    while (left.length && right.length) {
-        result.push(left[0] < right[0] ? left.shift() : right.shift());
+void merge(vector<int>& arr, vector<int>& left, vector<int>& right) {
+    int i = 0, j = 0, k = 0;
+    
+    while (i < left.size() && j < right.size()) {
+        if (left[i] < right[j]) 
+            arr[k++] = left[i++];
+        else
+            arr[k++] = right[j++];
     }
-    return result.concat(left, right);
+    
+    while (i < left.size()) arr[k++] = left[i++];
+    while (j < right.size()) arr[k++] = right[j++];
 }`,
         time: 'O(n log n)',
         space: 'O(n)'
     },
     quick: {
-        code: `function quickSort(arr, low = 0, high = arr.length - 1) {
+        code: `void quickSort(vector<int>& arr, int low, int high) {
     if (low < high) {
-        const pi = partition(arr, low, high);
+        int pi = partition(arr, low, high);
         quickSort(arr, low, pi - 1);
         quickSort(arr, pi + 1, high);
     }
 }
 
-function partition(arr, low, high) {
-    const pivot = arr[high];
-    let i = low - 1;
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
     
-    for (let j = low; j < high; j++) {
+    for (int j = low; j < high; j++) {
         if (arr[j] < pivot) {
             i++;
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+            swap(arr[i], arr[j]);
         }
     }
-    
-    [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+    swap(arr[i + 1], arr[high]);
     return i + 1;
 }`,
         time: 'O(n log n) average, O(n²) worst',
         space: 'O(log n)'
     },
-
-        insertion: {
-            code: `function insertionSort(arr) {
-        for (let i = 1; i < arr.length; i++) {
-            let key = arr[i];
-            let j = i - 1;
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = key;
+    insertion: {
+        code: `void insertionSort(vector<int>& arr) {
+    for (int i = 1; i < arr.size(); i++) {
+        int key = arr[i];
+        int j = i - 1;
+        
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
         }
-    }`,
-            time: 'O(n²)',
-            space: 'O(1)'
-        },
-        selection: {
-            code: `function selectionSort(arr) {
-        for (let i = 0; i < arr.length; i++) {
-            let minIdx = i;
-            for (let j = i + 1; j < arr.length; j++) {
-                if (arr[j] < arr[minIdx]) minIdx = j;
-            }
-            [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+        arr[j + 1] = key;
+    }
+}`,
+        time: 'O(n²)',
+        space: 'O(1)'
+    },
+    selection: {
+        code: `void selectionSort(vector<int>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < arr.size(); j++) {
+            if (arr[j] < arr[minIdx])
+                minIdx = j;
         }
-    }`,
-            time: 'O(n²)',
-            space: 'O(1)'
-        },
+        swap(arr[i], arr[minIdx]);
+    }
+}`,
+        time: 'O(n²)',
+        space: 'O(1)'
+    },
+    heap: {
+        code: `void heapSort(vector<int>& arr) {
+    // Build max heap
+    for (int i = arr.size()/2 - 1; i >= 0; i--)
+        heapify(arr, arr.size(), i);
+    
+    // Extract elements
+    for (int i = arr.size()-1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
 
-            heap: {
-                code: `function heapSort(arr) {
-            // Build max heap
-            for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) {
-                heapify(arr, arr.length, i);
-            }
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i;
+    int left = 2*i + 1;
+    int right = 2*i + 2;
+    
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
+    
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}`,
+        time: 'O(n log n)',
+        space: 'O(1)'
+    },
+    shell: {
+        code: `void shellSort(vector<int>& arr) {
+    for (int gap = arr.size()/2; gap > 0; gap /= 2) {
+        for (int i = gap; i < arr.size(); i++) {
+            int temp = arr[i];
+            int j;
             
-            // Extract elements from heap
-            for (let i = arr.length - 1; i > 0; i--) {
-                [arr[0], arr[i]] = [arr[i], arr[0]];
-                heapify(arr, i, 0);
-            }
-        }
-        
-        function heapify(arr, n, i) {
-            let largest = i;
-            const left = 2 * i + 1;
-            const right = 2 * i + 2;
-        
-            if (left < n && arr[left] > arr[largest]) largest = left;
-            if (right < n && arr[right] > arr[largest]) largest = right;
-        
-            if (largest !== i) {
-                [arr[i], arr[largest]] = [arr[largest], arr[i]];
-                heapify(arr, n, largest);
-            }
-        }`,
-                time: 'O(n log n)',
-                space: 'O(1)'
-            },
-            shell: {
-                code: `function shellSort(arr) {
-            let gap = Math.floor(arr.length / 2);
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
             
-            while (gap > 0) {
-                for (let i = gap; i < arr.length; i++) {
-                    const temp = arr[i];
-                    let j = i;
-                    
-                    while (j >= gap && arr[j - gap] > temp) {
-                        arr[j] = arr[j - gap];
-                        j -= gap;
-                    }
-                    arr[j] = temp;
-                }
-                gap = Math.floor(gap / 2);
-            }
-        }`,
-                time: 'O(n log²n)',
-                space: 'O(1)'
-            },
-
+            arr[j] = temp;
+        }
+    }
+}`,
+        time: 'O(n log²n)',
+        space: 'O(1)'
+    },
     linear: {
-        code: `function linearSearch(arr, target) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === target) return i;
+        code: `int linearSearch(const vector<int>& arr, int target) {
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == target)
+            return i;
     }
     return -1;
 }`,
@@ -184,15 +188,19 @@ function partition(arr, low, high) {
         space: 'O(1)'
     },
     binary: {
-        code: `function binarySearch(arr, target) {
-    let left = 0;
-    let right = arr.length - 1;
+        code: `int binarySearch(const vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
     
     while (left <= right) {
-        const mid = Math.floor((left + right) / 2);
-        if (arr[mid] === target) return mid;
-        if (arr[mid] < target) left = mid + 1;
-        else right = mid - 1;
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target)
+            return mid;
+        if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
     }
     return -1;
 }`,
