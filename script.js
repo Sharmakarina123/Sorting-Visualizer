@@ -1,4 +1,4 @@
-// Add at the top of the file
+
 window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     
@@ -11,7 +11,6 @@ window.addEventListener('load', () => {
     }, 3000); // Adjust time as needed (3000ms = 3 seconds)
 });
 
-// Add array visualization to preloader HTML
 const arrayVisualization = document.createElement('div');
 arrayVisualization.className = 'array-visualization';
 [3, 1, 4, 1, 5, 9, 2, 6].forEach(num => {
@@ -29,7 +28,7 @@ let array = [];
 let isSorting = false;
 let soundEnabled = false;
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-let animationSpeed = 50; // Add this line
+let animationSpeed = 50;
 
 const algorithms = {
     bubble: {
@@ -629,7 +628,6 @@ function playSound(frequency = 440, duration = 0.1) {
 }
 
 function sleep() {
-    // Add logarithmic scaling for better speed control
     const scaledSpeed = animationSpeed * (Math.log(animationSpeed + 1) / 4);
     return new Promise(resolve => setTimeout(resolve, scaledSpeed));
 }
@@ -684,11 +682,6 @@ document.getElementById('customArray').addEventListener('input', function(e) {
 
 
 
-
-
-
-
-// Add click handlers to sections to auto-detect content
 document.querySelectorAll('.algorithm-code, #timeSection, #spaceSection').forEach(section => {
     section.addEventListener('click', () => {
         document.getElementById('readStatus').textContent = 
