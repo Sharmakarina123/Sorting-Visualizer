@@ -1,5 +1,4 @@
 /* styles.css */
-/* Base Styles */
 @keyframes gradientBackground {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -221,7 +220,6 @@ body::before {
     box-shadow: 20px 20px 40px rgba(0,0,0,0.3);
 }
 
-/* Add this to existing styles */
 .sorted-complete {
     background: linear-gradient(to top, #8a2be2, #9400d3) !important;
     animation: success-pulse 2s ease infinite;
@@ -232,7 +230,6 @@ body::before {
     50% { box-shadow: 0 0 25px #8a2be2; }
 }
 
-/* Add this to existing styles */
 #algorithm {
     background: rgba(0, 0, 0, 0.3) !important;
     color: #fff !important;
@@ -244,7 +241,6 @@ body::before {
     padding: 12px;
 }
 
-/* Add this to existing styles */
 .algorithm-code {
     transform: none !important;
     transition: all 0.3s ease !important;
@@ -267,8 +263,6 @@ body::before {
 }
 
 
-
-/* Preloader Styles */
 #preloader {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -338,8 +332,6 @@ body::before {
 }
 
 
-
-/* Add these new styles */
 .code-pattern {
     background-image: 
         linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
