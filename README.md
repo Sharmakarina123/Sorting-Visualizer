@@ -3,7 +3,7 @@
 # 🔍 Sorting & Searching Visualizer
 
 Welcome to the **Sorting & Searching Visualizer**, a powerful and visually stunning tool to learn and explore popular algorithms interactively!  
-Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive experience with animation, sound, and custom control features.
+Built with HTML, TailwindCSS & JavaScript, this project offers an immersive experience with animation, sound, and custom control features.
 
 🚀 **[Live Demo](https://sortingvisualizerbykarina.netlify.app/)** 
 
