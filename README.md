@@ -17,6 +17,7 @@ Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive
 - 🔊 Sound Effects (toggleable)
 - 🔄 Real-Time Visualization with Stylish Animations
 - 🧾 Collapsible Sections for Clean UI
+- 🚀 Deployed in Netlify 
 - **🎓 Educational Content**
   - Time & Space Complexity Analysis
   - Algorithm Pseudocode
