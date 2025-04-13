@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-900 text-white min-h-screen font-sans">
+
+
+<!-- Add this right after opening <body> tag -->
+   <!-- Update the preloader section -->
+<div id="preloader" class="fixed inset-0 z-50 bg-slate-900 flex items-center justify-center transition-opacity duration-500 overflow-hidden">
+    <!-- Animated code background -->
+    <div class="absolute inset-0 opacity-10 z-0">
+        <div class="code-pattern absolute inset-0 overflow-hidden">
+            <!-- Dynamically generated code lines -->
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="text-center space-y-6 relative z-10">
+        <!-- Existing loader animation -->
+        <div class="cyber-loader animate-pulse">
+            <div class="flex justify-center mb-6">
+                <div class="relative w-24 h-24 border-4 border-sky-400 rounded-full 
+                          animate-spin border-t-transparent">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 border-4 border-emerald-400 rounded-full 
+                                  animate-spin border-b-transparent"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code-like Animation -->
+            <div class="font-mono text-slate-300 text-sm text-left px-8">
+                <div class="mockup-code bg-slate-800/50">
+                    <pre class="px-4"><span class="text-emerald-400">$</span> Initializing sort visualizer</pre>
+                    <pre class="px-4"><span class="text-emerald-400">$</span> Loading algorithms...</pre>
+                    <pre class="px-4 animate-highlight">> QuickSort(arr, low, high) {
+    if (low < high) {
+        const pi = partition(arr, low, high);
+        QuickSort(arr, low, pi - 1);
+        QuickSort(arr, pi + 1, high);
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits with animation -->
+        <div class="mt-8 animate-float">
+            <div class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400 
+                      text-lg font-mono tracking-wide hover:scale-105 transition-transform">
+                Made with 🩵 by KARINA SHARMA
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Sound Toggle -->
+        <div class="flex justify-end mb-6">
+            <button id="soundToggle" onclick="toggleSound()" 
+                    class="control-btn glass-panel px-4 py-2 rounded-lg flex items-center gap-2
+                           hover:bg-slate-700/50 transition-all">
+                <span class="text-xl">🔊</span>
+                <span class="sound-label">Enable Sound</span>
+            </button>
+        </div>
+
+
+        <!-- Controls Section -->
+        <div class="glass-panel rounded-xl p-6 mb-8 shadow-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <!-- Array Size Control -->
+                <div class="space-y-2">
+                    <label class="text-sm text-slate-300">Array Size</label>
+                    <input type="range" id="arraySize" min="5" max="50" value="15" 
+                           class="w-full range-slider bg-slate-800/50 rounded-lg">
+                    <div class="flex justify-between text-sm">
+                        <span>5</span>
+                        <span id="currentSize">15</span>
+                        <span>50</span>
+                    </div>
+                </div>
+
+        
+                <!-- Speed Control -->
+                <div class="space-y-2">
+                    <label class="text-sm text-slate-300">Speed</label>
+                    <input type="range" id="speed" min="1" max="100" value="50" 
+                           class="w-full range-slider bg-slate-800/50 rounded-lg">
+                    <div class="flex justify-between text-sm">
+                        <span>Fast</span>
+                        <span>Slow</span>
+                    </div>
+                </div>
+        
+                <!-- Custom Array Input -->
+                <div class="space-y-2">
+                    <label class="text-sm text-slate-300">Custom Array</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="customArray" placeholder="e.g., 34,12,78,45" 
+                               class="w-full bg-slate-800/50 rounded-lg px-3 py-2 text-sm">
+                        <button onclick="useCustomArray()" 
+                                class="bg-sky-600/80 hover:bg-sky-600 px-3 py-2 rounded-lg text-sm">
+                                Apply
+                        </button>
+                    </div>
+                </div>
+        
+                <!-- Algorithm Selection -->
+                <div class="space-y-2">
+                    <label class="text-sm text-slate-300">Algorithm</label>
+                    <select id="algorithm" onchange="toggleSearchInput()"
+                            class="w-full bg-slate-800/50 rounded-lg px-3 py-2 text-sm">
+                        <option value="bubble">Bubble Sort</option>
+                        <option value="merge">Merge Sort</option>
+                        <option value="quick">Quick Sort</option>
+                        <option value="insertion">Insertion Sort</option>
+                        <option value="selection">Selection Sort</option>
+                        <option value="heap">Heap Sort</option>
+                        <option value="shell">Shell Sort</option>
+                        <option value="linear">Linear Search</option>
+                        <option value="binary">Binary Search</option>
+                    </select>
+                </div>
+            </div>
+        
+            <!-- Visualization Control Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <button onclick="generateNewArray()" 
+                        class="w-full sm:w-auto bg-emerald-600/80 hover:bg-emerald-600 px-6 py-3 rounded-lg
+                               font-medium flex items-center gap-2">
+                    🎲 New Array
+                </button>
+                
+        </div>
+
+        <div id="searchInput" class="hidden space-y-2">
+            <input type="number" id="searchValue" placeholder="Search value" 
+                   class="w-full bg-slate-800/50 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500
+                          border border-slate-700 focus:border-transparent">
+        </div>
+
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
+
+                <button onclick="startVisualization()" id="visualizeBtn"
+                        class="control-btn w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 
+                               hover:from-indigo-500 hover:to-purple-500 px-8 py-3 rounded-lg
+                               font-semibold text-lg shadow-lg">
+                    🚀 Visualize
+                </button>
+            </div>
+        </div>
+
+        <!-- Visualization Container -->
+        <div class="glass-panel rounded-xl p-6 mb-8 h-64 flex items-end gap-[2px] shadow-2xl"
+             id="visualization">
+            <div class="absolute text-slate-400 text-sm top-4 left-6">Current Array Visualization</div>
+        </div>
+
+        <!-- Collapsible Sections -->
+        <div class="space-y-4">
+            <div class="glass-panel rounded-xl overflow-hidden">
+                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-800/30 transition-all"
+                     onclick="toggleSection('code')">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <span>📜 Algorithm Code</span>
+                    </h3>
+                    <span id="codeArrow" class="transition-transform">▼</span>
+                </div>
+                <pre class="hidden p-6 algorithm-code" id="codeSection"></pre>
+            </div>
+
+            <!-- Time Complexity Section -->
+            <div class="glass-panel rounded-xl overflow-hidden">
+                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-800/30 transition-all"
+                     onclick="toggleSection('time')">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <span>⏱ Time Complexity</span>
+                    </h3>
+                    <span id="timeArrow" class="transition-transform">▼</span>
+                </div>
+                <div class="hidden p-6 bg-slate-800/50" id="timeSection"></div>
+            </div>
+
+            <!-- Space Complexity Section -->
+            <div class="glass-panel rounded-xl overflow-hidden">
+                <div class="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-800/30 transition-all"
+                     onclick="toggleSection('space')">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <span>💾 Space Complexity</span>
+                    </h3>
+                    <span id="spaceArrow" class="transition-transform">▼</span>
+                </div>
+                <div class="hidden p-6 bg-slate-800/50" id="spaceSection"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+    
+<div class="fixed bottom-4 right-4 text-slate-300/80 text-xs font-medium z-50 
+hover:text-sky-300 transition-all duration-300 group">
+<span class="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">▹</span>
+Made with 🩵 by KARINA SHARMA
+<span class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity">◃</span>
+</div>
+
+
+
+</body>
+</html>
