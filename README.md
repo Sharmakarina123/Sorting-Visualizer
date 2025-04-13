@@ -7,7 +7,7 @@ Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive
 
 🚀 **[Live Demo](https://your-netlify-link.netlify.app/)** | 📦 **[GitHub Repo](https://github.com/your-username/your-repo-name)**
 
----
+----
 
 ## ✨ Features
 
