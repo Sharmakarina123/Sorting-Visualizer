@@ -17,14 +17,14 @@ Built with 💖 HTML, TailwindCSS & JavaScript, this project offers an immersive
 - 🔊 Sound Effects (toggleable)
 - 🔄 Real-Time Visualization with Stylish Animations
 - 🧾 Collapsible Sections for Clean UI
+- 🎓 Educational Content**
+  - Time & Space Complexity Analysis
+  - Algorithm Pseudocode
 - **📊 Visualization Features**
   - Color-coded element states (comparing/swapping/sorted)
   - Real-time audio feedback
   - Responsive design (works on mobile/tablet)
   - Code snippet display for each algorithm
-  - **🎓 Educational Content**
-  - Time & Space Complexity Analysis
-  - Algorithm Pseudocode
 
 ---
 
